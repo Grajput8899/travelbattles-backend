@@ -13,6 +13,7 @@ const adminUserRoutes = require('./routes/adminUsers');
 const adminLeaderboardRoutes = require('./routes/adminLeaderboard');
 const adminContentRoutes = require('./routes/adminContent');
 const userVisitedCitiesRouter = require('./routes/userVisitedCities');
+const adsRoutes = require('./routes/ads');
 
 const app = express();
 app.use(cors());
@@ -28,6 +29,7 @@ app.use('/api/admin/users', adminUserRoutes);
 app.use('/api/admin/leaderboard', adminLeaderboardRoutes);
 app.use('/api/admin/content', adminContentRoutes);
 app.use('/api/user/visited-cities', userVisitedCitiesRouter);
+app.use('/api/ads', adsRoutes);
 
 const PORT = process.env.PORT || 5000;
 
