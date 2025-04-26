@@ -7,7 +7,26 @@ const adminMiddleware = require('../middleware/admin');
 // GET all ads (public)
 router.get('/', async (req, res) => {
   try {
-    const ads = await Ad.find().sort({ createdAt: -1 });
+    let ads = await Ad.find().sort({ createdAt: -1 });
+    // If no ads in DB, return sample ads for testing
+    if (!ads || ads.length === 0) {
+      ads = [
+        {
+          imageUrl: 'https://via.placeholder.com/600x200?text=Ad+1',
+          link: 'https://example.com/ad1',
+          alt: 'Ad 1',
+          _id: 'sample1',
+          createdAt: new Date()
+        },
+        {
+          imageUrl: 'https://via.placeholder.com/600x200?text=Ad+2',
+          link: 'https://example.com/ad2',
+          alt: 'Ad 2',
+          _id: 'sample2',
+          createdAt: new Date()
+        }
+      ];
+    }
     res.json(ads);
   } catch (err) {
     res.status(500).json({ error: err.message });
