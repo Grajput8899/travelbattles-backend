@@ -3,8 +3,21 @@ const router = express.Router();
 const Entry = require('../models/Entry');
 const authMiddleware = require('../middleware/auth');
 
+// GET a single entry by ID
+router.get('/:entryId', async (req, res) => {
+  // If the path is /challenge/:challengeId, skip this route
+  if (req.path.startsWith('/challenge/')) return;
+  try {
+    const entry = await Entry.findById(req.params.entryId);
+    if (!entry) return res.status(404).json({ error: 'Entry not found' });
+    res.json(entry);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // GET all entries for a challenge
-router.get('/:challengeId', async (req, res) => {
+router.get('/challenge/:challengeId', async (req, res) => {
   try {
     const entries = await Entry.find({ challengeId: req.params.challengeId });
     res.json(entries);

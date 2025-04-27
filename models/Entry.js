@@ -8,11 +8,25 @@ const ActivitySchema = new mongoose.Schema({
   mapsLink: String,
 });
 
+// Add schemas for accommodation, food, and misc arrays
+const AccommodationSchema = new mongoose.Schema({
+  name: String,
+  cost: Number,
+});
+const FoodSchema = new mongoose.Schema({
+  name: String,
+  cost: Number,
+});
+const MiscSchema = new mongoose.Schema({
+  name: String,
+  cost: Number,
+});
+
 const DaySchema = new mongoose.Schema({
   activities: [ActivitySchema],
-  accommodation: Number,
-  food: Number,
-  misc: Number,
+  accommodations: [AccommodationSchema],
+  food: [FoodSchema],
+  misc: [MiscSchema],
 });
 
 const EntrySchema = new mongoose.Schema({
